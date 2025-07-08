@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: #1b4332;
-    color: #ffffff;
+    background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%); /* 3D gradient */
+    background-image: url('https://www.transparenttextures.com/patterns/green-felt.png'); /* Felt texture */
+    color: #000000;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -15,36 +16,45 @@ body {
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    perspective: 1000px; /* 3D perspective */
 }
 
 header {
     text-align: center;
     padding: 1rem;
+    background: linear-gradient(45deg, #2d6a4f, #40916c);
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.2);
+    transform: translateZ(20px);
+    border: 2px solid #ffd700;
 }
 
 #logo {
-    width: 100px;
+    width: 120px;
     height: auto;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+    transition: transform 0.3s;
+}
+
+#logo:hover {
+    transform: scale(1.1) rotateY(10deg);
 }
 
 h1 {
-    font-size: 2rem;
-    font-weight: 600;
+    font-size: 2.5rem;
+    font-weight: 700;
     margin: 0.5rem 0;
-}
-
-#menu.hidden {
-    display: none !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 #game-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto auto auto;
-    gap: 1rem;
+    gap: 1.5rem;
     width: 100%;
-    max-width: 800px;
-    margin-top: 1rem;
+    max-width: 900px;
+    margin-top: 1.5rem;
 }
 
 #ai-deck-area {
@@ -52,7 +62,7 @@ h1 {
     grid-row: 1;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 #ai-war-pile {
@@ -80,7 +90,7 @@ h1 {
     grid-row: 1;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
     justify-content: flex-end;
 }
 
@@ -88,50 +98,76 @@ h1 {
     grid-column: 1 / 3;
     grid-row: 4;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    background: linear-gradient(45deg, #2d6a4f, #40916c);
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateZ(10px);
+    border: 2px solid #ffd700;
 }
 
 .deck {
     cursor: pointer;
-    background: #ffd700;
+    background: linear-gradient(45deg, #ffd700, #e6c200);
     color: #1b4332;
-    padding: 1rem;
-    border-radius: 8px;
+    padding: 1.2rem;
+    border-radius: 10px;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.3);
     font-weight: 600;
+    transform: translateZ(10px);
+    transition: transform 0.2s;
+}
+
+.deck:hover {
+    transform: translateZ(20px);
 }
 
 .card, .war-pile {
     background: none;
-    min-height: 100px;
+    min-height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .deck-image {
-    width: 120px;
+    width: 150px;
     height: auto;
-    transform: rotate(90deg); /* Rotate vertical images to horizontal */
+    transform: rotate(90deg) perspective(600px) rotateY(5deg); /* 3D card effect */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4), 2px 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.deck-image:hover:not([src="assets/empty.png"]) {
+    transform: rotate(90deg) perspective(600px) rotateY(10deg) scale(1.05);
 }
 
 button {
-    background-color: #ffd700;
+    background: linear-gradient(45deg, #ffd700, #e6c200);
     color: #1b4332;
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 1.5rem;
-    font-weight: 400;
+    border: 2px solid #d4a017;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
     cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    transform: translateZ(0);
 }
 
 button:hover {
-    background-color: #e6c200;
-    transform: scale(1.05);
+    transform: translateY(-4px) translateZ(20px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+button:active {
+    transform: translateY(2px) translateZ(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .hidden {
@@ -143,6 +179,23 @@ button:hover {
         padding: 1rem;
     }
     #logo {
+        width: 100px;
+    }
+    h1 {
+        font-size: 2rem;
+    }
+    button {
+        padding: 1rem 2rem;
+        font-size: 1.4rem;
+        font-size: 1.4rem;
+    }
+    .deck-image {
+        width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    #logo {
         width: 80px;
     }
     h1 {
@@ -152,56 +205,7 @@ button:hover {
         padding: 0.8rem 1.5rem;
         font-size: 1.2rem;
     }
-    #game-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto auto auto auto auto;
-    }
-    #ai-deck-area {
-        grid-column: 1;
-        grid-row: 1;
-    }
-    #ai-war-pile {
-        grid-column: 1;
-        grid-row: 2;
-    }
-    #ai-card {
-        grid-column: 1;
-        grid-row: 3;
-    }
-    #player-card {
-        grid-column: 1;
-        grid-row: 4;
-    }
-    #player-war-pile {
-        grid-column: 1;
-        grid-row: 5;
-    }
-    #player-deck-area {
-        grid-column: 1;
-        grid-row: 6;
-        justify-content: flex-start;
-    }
-    #game-status {
-        grid-column: 1;
-        grid-row: 7;
-    }
     .deck-image {
         width: 100px;
-    }
-}
-
-@media (max-width: 480px) {
-    #logo {
-        width: 60px;
-    }
-    h1 {
-        font-size: 1.2rem;
-    }
-    button {
-        padding: 0.6rem 1.2rem;
-        font-size: 1rem;
-    }
-    .deck-image {
-        width: 80px;
     }
 }

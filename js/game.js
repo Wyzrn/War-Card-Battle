@@ -29,7 +29,7 @@ function initializeGame() {
         gameContainer.innerHTML = `
             <h2>Rules of War</h2>
             <p>Players take turns placing one card from their deck. The higher card wins both cards, which go to the winner's deck.</p>
-            <p>A Joker beats all cards except a 2. If cards are equal (except Joker vs. 2s), a "War" occurs: each player places 3 cards face down and 1 face up. The higher face-up card wins all cards.</p>
+            <p>A Joker beats all cards except a 2. If cards are equal, a "War" occurs: each player places 3 cards face down and 1 face up. The higher face-up card wins all cards.</p>
             <p>The game ends when one player has all cards.</p>
             <button id="back-button">Back to Menu</button>
         `;
@@ -71,7 +71,7 @@ function startGame() {
     const gameStatusEl = document.getElementById("game-status");
 
     function updateDeckDisplay() {
-        aiDeckEl.textContent = `AI Deck: ${gameData.aiDeck.length} cards`;
+        aiDeckEl.textContent = `Opponent Deck: ${gameData.aiDeck.length} cards`;
         playerDeckEl.textContent = `Player Deck: ${gameData.playerDeck.length} cards`;
         aiWarPileEl.innerHTML = gameData.aiWarPile.length ? `<img src="assets/back.png" alt="Face-down card" class="deck-image">` : "";
         playerWarPileEl.innerHTML = gameData.playerWarPile.length ? `<img src="assets/back.png" alt="Face-down card" class="deck-image">` : "";
@@ -120,7 +120,7 @@ function startGame() {
             gameData.score.ai += gameData.playerWarPile.length + gameData.aiWarPile.length;
             gameData.playerWarPile = [];
             gameData.aiWarPile = [];
-            gameStatusEl.textContent = "AI wins the round!";
+            gameStatusEl.textContent = "Opponent wins the round!";
         } else {
             gameStatusEl.textContent = "War!";
             initiateWar();
@@ -157,10 +157,10 @@ function startGame() {
     }
 
     function endGame() {
-        gameData.winner = gameData.playerDeck.length > 0 ? "Player" : "AI";
+        gameData.winner = gameData.playerDeck.length > 0 ? "Player" : "Opponent";
         gameContainer.innerHTML = `
             <h2>${gameData.winner} Wins!</h2>
-            <p>Player Score: ${gameData.score.player}, AI Score: ${gameData.score.ai}</p>
+            <p>Player Score: ${gameData.score.player}, Opponent Score: ${gameData.score.ai}</p>
             <button id="restart-button">Restart Game</button>
         `;
         document.getElementById("restart-button").addEventListener("click", () => {

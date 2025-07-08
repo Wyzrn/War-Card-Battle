@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: #1b4332;
-    color: #ffffff;
+    background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%); /* 3D gradient */
+    background-image: url('https://www.transparenttextures.com/patterns/green-felt.png'); /* Felt texture */
+    color: #000000;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -15,26 +16,36 @@ body {
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    perspective: 1000px; /* 3D perspective */
 }
 
 header {
     text-align: center;
     padding: 2rem;
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(45deg, #2d6a4f, #40916c);
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.2);
+    transform: translateZ(20px); /* 3D pop effect */
+    border: 2px solid #b49901;
 }
 
 #logo {
-    width: 150px;
+    width: 180px;
     height: auto;
-    margin-bottom: 1rem;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+    transition: transform 0.3s;
+    border-radius: 12px;
+}
+
+#logo:hover {
+    transform: scale(1.1) rotateY(10deg);
 }
 
 h1 {
-    font-size: 3rem;
-    font-weight: 600;
+    font-size: 3.5rem;
+    font-weight: 700;
     margin: 0.5rem 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 #menu {
@@ -42,28 +53,35 @@ h1 {
     flex-direction: column;
     gap: 1.5rem;
     margin-top: 2rem;
+    transform: translateZ(10px);
 }
 
 button {
-    background-color: #ffd700;
+    background: linear-gradient(45deg, #ffd700, #e6c200);
     color: #1b4332;
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 1.5rem;
-    font-weight: 400;
+    border: 2px solid #d4a017;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
     cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    transform: translateZ(0);
 }
 
 button:hover {
-    background-color: #e6c200;
-    transform: scale(1.05);
+    transform: translateY(-4px) translateZ(20px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+button:active {
+    transform: translateY(2px) translateZ(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 @media (max-width: 768px) {
@@ -71,26 +89,22 @@ button:hover {
         padding: 1rem;
     }
     #logo {
-        width: 100px;
+        width: 120px;
     }
     h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
     button {
-        padding: 0.8rem 1.5rem;
-        font-size: 1.2rem;
+        padding: 1rem 2rem;
+        font-size: 1.4rem;
     }
 }
 
 @media (max-width: 480px) {
     #logo {
-        width: 80px;
+        width: 100px;
     }
     h1 {
-        font-size: 1.5rem;
-    }
-    button {
-        padding: 0.6rem 1.2rem;
-        font-size: 1rem;
+        font-size: 2rem;
     }
 }
