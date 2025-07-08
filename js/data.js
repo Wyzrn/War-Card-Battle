@@ -16,7 +16,7 @@ const gameData = {
         { name: "Queen", value: 12 },
         { name: "King", value: 13 },
         { name: "Ace", value: 14 },
-        { name: "Joker", value: 1 }
+        { name: "Joker", value: 15 } // Joker beats all except 2
     ],
     aiDeck: [],
     playerDeck: [],
@@ -33,8 +33,8 @@ function createDeck() {
             deck.push({ suit, name: card.name, value: card.value });
         });
     });
-    deck.push({ suit: null, name: "Joker", value: 1 });
-    deck.push({ suit: null, name: "Joker", value: 1 });
+    deck.push({ suit: null, name: "Joker", value: 15 });
+    deck.push({ suit: null, name: "Joker", value: 15 });
 
     for (let i = deck.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));

@@ -16,27 +16,28 @@ function initializeGame() {
     startButton.addEventListener("click", () => {
         gameData.gameState = "Playing";
         styleSheet.href = "css/game.css";
-        menu.classList.add("hidden");
+        menu.style.display = "none"; // Explicitly hide menu
         gameContainer.classList.remove("hidden");
         startGame();
     });
 
     rulesButton.addEventListener("click", () => {
         gameData.gameState = "Rules";
-        menu.classList.add("hidden");
+        styleSheet.href = "css/game.css"; // Use game.css for rules to match styling
+        menu.style.display = "none"; // Explicitly hide menu
         gameContainer.classList.remove("hidden");
         gameContainer.innerHTML = `
             <h2>Rules of War</h2>
             <p>Players take turns placing one card from their deck. The higher card wins both cards, which go to the winner's deck.</p>
-            <p>If cards are equal, a "War" occurs: each player places 3 cards face down and 1 face up. The higher face-up card wins all cards.</p>
-            <p>2 beats a Joker. The game ends when one player has all cards.</p>
+            <p>A Joker beats all cards except a 2. If cards are equal (except Joker vs. 2s), a "War" occurs: each player places 3 cards face down and 1 face up. The higher face-up card wins all cards.</p>
+            <p>The game ends when one player has all cards.</p>
             <button id="back-button">Back to Menu</button>
         `;
         document.getElementById("back-button").addEventListener("click", () => {
             gameData.gameState = "StartMenu";
             styleSheet.href = "css/menu.css";
             gameContainer.classList.add("hidden");
-            menu.classList.remove("hidden");
+            menu.style.display = "flex"; // Restore menu visibility
             gameContainer.innerHTML = "";
         });
     });
@@ -46,12 +47,18 @@ function startGame() {
     createDeck();
     const gameContainer = document.getElementById("game-container");
     gameContainer.innerHTML = `
-        <div id="ai-deck" class="deck">AI Deck: ${gameData.aiDeck.length} cards</div>
+        <div id="ai-deck-area">
+            <img src="assets/back.png" alt="AI Deck Card Back" class="deck-image">
+            <div id="ai-deck" class="deck">AI Deck: ${gameData.aiDeck.length} cards</div>
+        </div>
         <div id="ai-war-pile" class="war-pile hidden"></div>
-        <div id="ai-card" class="card"></div>
-        <div id="player-card" class="card"></div>
+        <div id="ai-card" class="card"><img src="assets/empty.png" alt="Empty card slot" class="deck-image"></div>
+        <div id="player-card" class="card"><img src="assets/empty.png" alt="Empty card slot" class="deck-image"></div>
         <div id="player-war-pile" class="war-pile hidden"></div>
-        <div id="player-deck" class="deck">Player Deck: ${gameData.playerDeck.length} cards</div>
+        <div id="player-deck-area">
+            <div id="player-deck" class="deck">Player Deck: ${gameData.playerDeck.length} cards</div>
+            <img src="assets/back.png" alt="Player Deck Card Back" class="deck-image">
+        </div>
         <div id="game-status"></div>
     `;
 
@@ -66,10 +73,18 @@ function startGame() {
     function updateDeckDisplay() {
         aiDeckEl.textContent = `AI Deck: ${gameData.aiDeck.length} cards`;
         playerDeckEl.textContent = `Player Deck: ${gameData.playerDeck.length} cards`;
-        aiWarPileEl.textContent = gameData.aiWarPile.length ? `AI War Pile: ${gameData.aiWarPile.length} cards` : "";
-        playerWarPileEl.textContent = gameData.playerWarPile.length ? `Player War Pile: ${gameData.playerWarPile.length} cards` : "";
+        aiWarPileEl.innerHTML = gameData.aiWarPile.length ? `<img src="assets/back.png" alt="Face-down card" class="deck-image">` : "";
+        playerWarPileEl.innerHTML = gameData.playerWarPile.length ? `<img src="assets/back.png" alt="Face-down card" class="deck-image">` : "";
         aiWarPileEl.classList.toggle("hidden", !gameData.aiWarPile.length);
         playerWarPileEl.classList.toggle("hidden", !gameData.playerWarPile.length);
+    }
+
+    function compareCards(playerCard, aiCard) {
+        if (playerCard.name === "Joker" && aiCard.name !== "2") return true;
+        if (aiCard.name === "Joker" && playerCard.name !== "2") return false;
+        if (playerCard.name === "2" && aiCard.name === "Joker") return true;
+        if (aiCard.name === "2" && playerCard.name === "Joker") return false;
+        return playerCard.value > aiCard.value;
     }
 
     function playRound() {
@@ -79,24 +94,28 @@ function startGame() {
         const aiCard = gameData.aiDeck.shift();
 
         if (!playerCard || !aiCard) {
+            playerCardEl.innerHTML = `<img src="assets/empty.png" alt="Empty card slot" class="deck-image">`;
+            aiCardEl.innerHTML = `<img src="assets/empty.png" alt="Empty card slot" class="deck-image">`;
             endGame();
             return;
         }
 
-        playerCardEl.textContent = `${playerCard.name}${playerCard.suit ? " of " + playerCard.suit : ""}`;
-        aiCardEl.textContent = `${aiCard.name}${aiCard.suit ? " of " + aiCard.suit : ""}`;
+        const playerCardPath = `assets/cards/${playerCard.name.toLowerCase()}${playerCard.suit ? "_" + playerCard.suit.toLowerCase() : ""}.png`;
+        const aiCardPath = `assets/cards/${aiCard.name.toLowerCase()}${aiCard.suit ? "_" + aiCard.suit.toLowerCase() : ""}.png`;
+        playerCardEl.innerHTML = `<img src="${playerCardPath}" alt="${playerCard.name}${playerCard.suit ? " of " + playerCard.suit : ""}" class="deck-image" onerror="this.outerHTML='<span>${playerCard.name}${playerCard.suit ? " of " + playerCard.suit : ""}</span>'">`;
+        aiCardEl.innerHTML = `<img src="${aiCardPath}" alt="${aiCard.name}${aiCard.suit ? " of " + aiCard.suit : ""}" class="deck-image" onerror="this.outerHTML='<span>${aiCard.name}${aiCard.suit ? " of " + aiCard.suit : ""}</span>'">`;
 
         gameData.playerWarPile.push(playerCard);
         gameData.aiWarPile.push(aiCard);
         updateDeckDisplay();
 
-        if (playerCard.value > aiCard.value) {
+        if (compareCards(playerCard, aiCard)) {
             gameData.playerDeck.push(...gameData.playerWarPile, ...gameData.aiWarPile);
             gameData.score.player += gameData.playerWarPile.length + gameData.aiWarPile.length;
             gameData.playerWarPile = [];
             gameData.aiWarPile = [];
             gameStatusEl.textContent = "Player wins the round!";
-        } else if (aiCard.value > playerCard.value) {
+        } else if (compareCards(aiCard, playerCard)) {
             gameData.aiDeck.push(...gameData.aiWarPile, ...gameData.playerWarPile);
             gameData.score.ai += gameData.playerWarPile.length + gameData.aiWarPile.length;
             gameData.playerWarPile = [];
@@ -105,6 +124,7 @@ function startGame() {
         } else {
             gameStatusEl.textContent = "War!";
             initiateWar();
+            return;
         }
 
         updateDeckDisplay();
@@ -125,7 +145,9 @@ function startGame() {
         }
 
         updateDeckDisplay();
-        setTimeout(playRound, 1000);
+        setTimeout(() => {
+            if (!gameData.winner) playRound();
+        }, 3000);
     }
 
     function checkGameEnd() {
@@ -143,9 +165,10 @@ function startGame() {
         `;
         document.getElementById("restart-button").addEventListener("click", () => {
             gameData.gameState = "StartMenu";
-            styleSheet.href = "css/menu.css";
+            document.getElementById("styles").href = "css/menu.css";
             gameContainer.classList.add("hidden");
-            menu.classList.remove("hidden");
+            menu.style.display = "flex";
+            gameContainer.innerHTML = "";
             initializeGame();
         });
     }

@@ -16,7 +16,21 @@
             <button id="start-button">Start Game</button>
             <button id="rules-button">Rules</button>
         </div>
-        <div id="game-container" class="hidden"></div>
+        <div id="game-container" class="hidden">
+            <div id="ai-deck-area">
+                <img src="assets/back.png" alt="AI Deck Card Back" class="deck-image">
+                <div id="ai-deck" class="deck">AI Deck: 0 cards</div>
+            </div>
+            <div id="ai-war-pile" class="war-pile hidden"></div>
+            <div id="ai-card" class="card"><img src="assets/empty.png" alt="Empty card slot" class="deck-image"></div>
+            <div id="player-card" class="card"><img src="assets/empty.png" alt="Empty card slot" class="deck-image"></div>
+            <div id="player-war-pile" class="war-pile hidden"></div>
+            <div id="player-deck-area">
+                <div id="player-deck" class="deck">Player Deck: 0 cards</div>
+                <img src="assets/back.png" alt="Player Deck Card Back" class="deck-image">
+            </div>
+            <div id="game-status"></div>
+        </div>
     </main>
     <script src="js/data.js"></script>
     <script src="js/game.js"></script>

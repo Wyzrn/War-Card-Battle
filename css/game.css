@@ -33,6 +33,10 @@ h1 {
     margin: 0.5rem 0;
 }
 
+#menu.hidden {
+    display: none !important;
+}
+
 #game-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -43,9 +47,12 @@ h1 {
     margin-top: 1rem;
 }
 
-#ai-deck {
+#ai-deck-area {
     grid-column: 1;
     grid-row: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 #ai-war-pile {
@@ -68,9 +75,13 @@ h1 {
     grid-row: 2;
 }
 
-#player-deck {
+#player-deck-area {
     grid-column: 2;
     grid-row: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: flex-end;
 }
 
 #game-status {
@@ -80,30 +91,29 @@ h1 {
     font-size: 1.5rem;
 }
 
-.deck, .card, .war-pile {
-    background: #ffffff;
+.deck {
+    cursor: pointer;
+    background: #ffd700;
     color: #1b4332;
     padding: 1rem;
     border-radius: 8px;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.deck {
-    cursor: pointer;
-    background: #ffd700;
     font-weight: 600;
 }
 
-.card {
+.card, .war-pile {
+    background: none;
     min-height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.war-pile {
-    min-height: 50px;
+.deck-image {
+    width: 120px;
+    height: auto;
+    transform: rotate(90deg); /* Rotate vertical images to horizontal */
 }
 
 button {
@@ -125,7 +135,7 @@ button:hover {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 @media (max-width: 768px) {
@@ -146,7 +156,7 @@ button:hover {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto auto auto auto auto auto;
     }
-    #ai-deck {
+    #ai-deck-area {
         grid-column: 1;
         grid-row: 1;
     }
@@ -166,13 +176,17 @@ button:hover {
         grid-column: 1;
         grid-row: 5;
     }
-    #player-deck {
+    #player-deck-area {
         grid-column: 1;
         grid-row: 6;
+        justify-content: flex-start;
     }
     #game-status {
         grid-column: 1;
         grid-row: 7;
+    }
+    .deck-image {
+        width: 100px;
     }
 }
 
@@ -186,5 +200,8 @@ button:hover {
     button {
         padding: 0.6rem 1.2rem;
         font-size: 1rem;
+    }
+    .deck-image {
+        width: 80px;
     }
 }
