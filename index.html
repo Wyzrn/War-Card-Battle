@@ -8,18 +8,19 @@
 </head>
 <body>
     <header>
-        <img src="./Image/logo.png" alt="War Card Game Logo" id="logo">
+        <img src="Image/logo.png" alt="War Card Game Logo" id="logo">
         <h1>War: Card Battle</h1>
     </header>
     <main>
         <div id="menu">
             <button id="start-button">Start Game</button>
             <button id="rules-button">Rules</button>
+            <button id="sound-toggle" aria-label="Toggle sound effects">Sound: On</button>
         </div>
         <div id="game-container" class="hidden">
             <div id="ai-deck-area">
                 <img src="Image/back.png" alt="AI Deck Card Back" class="deck-image">
-                <div id="ai-deck" class="deck">Opponent Deck: 0 cards</div>
+                <div id="ai-deck" class="deck">AI Deck: 0 cards</div>
             </div>
             <div id="ai-war-pile" class="war-pile hidden"></div>
             <div id="ai-card" class="card"><img src="Image/empty.png" alt="Empty card slot" class="deck-image"></div>
@@ -31,6 +32,9 @@
             </div>
             <div id="game-status"></div>
         </div>
+        <!-- Audio elements for sound effects -->
+        <audio id="button-click-sound" preload="auto" src="Image/sounds/button-click.mp3"></audio>
+        <audio id="card-flip-sound" preload="auto" src="Image/sounds/card-flip.mp3"></audio>
     </main>
     <script src="js/data.js"></script>
     <script src="js/game.js"></script>
