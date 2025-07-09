@@ -48,16 +48,16 @@ function startGame() {
     const gameContainer = document.getElementById("game-container");
     gameContainer.innerHTML = `
         <div id="ai-deck-area">
-            <img src="assets/back.png" alt="AI Deck Card Back" class="deck-image">
+            <img src="Image/back.png" alt="AI Deck Card Back" class="deck-image">
             <div id="ai-deck" class="deck">AI Deck: ${gameData.aiDeck.length} cards</div>
         </div>
         <div id="ai-war-pile" class="war-pile hidden"></div>
-        <div id="ai-card" class="card"><img src="assets/empty.png" alt="Empty card slot" class="deck-image"></div>
-        <div id="player-card" class="card"><img src="assets/empty.png" alt="Empty card slot" class="deck-image"></div>
+        <div id="ai-card" class="card"><img src="Image/empty.png" alt="Empty card slot" class="deck-image"></div>
+        <div id="player-card" class="card"><img src="Image/empty.png" alt="Empty card slot" class="deck-image"></div>
         <div id="player-war-pile" class="war-pile hidden"></div>
         <div id="player-deck-area">
             <div id="player-deck" class="deck">Player Deck: ${gameData.playerDeck.length} cards</div>
-            <img src="assets/back.png" alt="Player Deck Card Back" class="deck-image">
+            <img src="Image/back.png" alt="Player Deck Card Back" class="deck-image">
         </div>
         <div id="game-status"></div>
     `;
@@ -73,8 +73,8 @@ function startGame() {
     function updateDeckDisplay() {
         aiDeckEl.textContent = `Opponent Deck: ${gameData.aiDeck.length} cards`;
         playerDeckEl.textContent = `Player Deck: ${gameData.playerDeck.length} cards`;
-        aiWarPileEl.innerHTML = gameData.aiWarPile.length ? `<img src="assets/back.png" alt="Face-down card" class="deck-image">` : "";
-        playerWarPileEl.innerHTML = gameData.playerWarPile.length ? `<img src="assets/back.png" alt="Face-down card" class="deck-image">` : "";
+        aiWarPileEl.innerHTML = gameData.aiWarPile.length ? `<img src="Image/back.png" alt="Face-down card" class="deck-image">` : "";
+        playerWarPileEl.innerHTML = gameData.playerWarPile.length ? `<img src="Image/back.png" alt="Face-down card" class="deck-image">` : "";
         aiWarPileEl.classList.toggle("hidden", !gameData.aiWarPile.length);
         playerWarPileEl.classList.toggle("hidden", !gameData.playerWarPile.length);
     }
@@ -94,14 +94,14 @@ function startGame() {
         const aiCard = gameData.aiDeck.shift();
 
         if (!playerCard || !aiCard) {
-            playerCardEl.innerHTML = `<img src="assets/empty.png" alt="Empty card slot" class="deck-image">`;
-            aiCardEl.innerHTML = `<img src="assets/empty.png" alt="Empty card slot" class="deck-image">`;
+            playerCardEl.innerHTML = `<img src="Image/empty.png" alt="Empty card slot" class="deck-image">`;
+            aiCardEl.innerHTML = `<img src="Image/empty.png" alt="Empty card slot" class="deck-image">`;
             endGame();
             return;
         }
 
-        const playerCardPath = `assets/cards/${playerCard.name.toLowerCase()}${playerCard.suit ? "_" + playerCard.suit.toLowerCase() : ""}.png`;
-        const aiCardPath = `assets/cards/${aiCard.name.toLowerCase()}${aiCard.suit ? "_" + aiCard.suit.toLowerCase() : ""}.png`;
+        const playerCardPath = `Image/cards/${playerCard.name.toLowerCase()}${playerCard.suit ? "_" + playerCard.suit.toLowerCase() : ""}.png`;
+        const aiCardPath = `Image/cards/${aiCard.name.toLowerCase()}${aiCard.suit ? "_" + aiCard.suit.toLowerCase() : ""}.png`;
         playerCardEl.innerHTML = `<img src="${playerCardPath}" alt="${playerCard.name}${playerCard.suit ? " of " + playerCard.suit : ""}" class="deck-image" onerror="this.outerHTML='<span>${playerCard.name}${playerCard.suit ? " of " + playerCard.suit : ""}</span>'">`;
         aiCardEl.innerHTML = `<img src="${aiCardPath}" alt="${aiCard.name}${aiCard.suit ? " of " + aiCard.suit : ""}" class="deck-image" onerror="this.outerHTML='<span>${aiCard.name}${aiCard.suit ? " of " + aiCard.suit : ""}</span>'">`;
 
