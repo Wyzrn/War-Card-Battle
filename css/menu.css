@@ -3,9 +3,9 @@
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%); /* 3D gradient */
-    background-image: url('https://www.transparenttextures.com/patterns/green-felt.png'); /* Felt texture */
-    color: #000000;
+    background: black;
+    background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fstock.adobe.com%2Fimages%2Ftexture-green-felt-wich-vignette%2F242976601&psig=AOvVaw1jFJazaBJfRNZdvGeZKowW&ust=1752162738068000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPDF5P-QsI4DFQAAAAAdAAAAABAi'); 
+    color: white;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -16,7 +16,7 @@ body {
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
-    perspective: 1000px; /* 3D perspective */
+    perspective: 1000px; 
 }
 
 header {
@@ -25,7 +25,7 @@ header {
     background: linear-gradient(45deg, #2d6a4f, #40916c);
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.2);
-    transform: translateZ(20px); /* 3D pop effect */
+    transform: translateZ(20px); 
     border: 2px solid #b49901;
 }
 
