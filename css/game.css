@@ -3,7 +3,7 @@
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: black; 
+    background: #1b3f2f;
     background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fstock.adobe.com%2Fimages%2Ftexture-green-felt-wich-vignette%2F242976601&psig=AOvVaw1jFJazaBJfRNZdvGeZKowW&ust=1752162738068000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPDF5P-QsI4DFQAAAAAdAAAAABAi'); 
     color: white;
     min-height: 100vh;
@@ -22,11 +22,11 @@ body {
 header {
     text-align: center;
     padding: 1rem;
-    background: linear-gradient(45deg, #2d6a4f, #40916c);
+    background: linear-gradient(45deg, #1b3f2f, #40916c);
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.2);
     transform: translateZ(20px);
-    border: 2px solid #ffd700;
+    border: 2px solid #b69b05;
 }
 
 #logo {

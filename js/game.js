@@ -16,15 +16,15 @@ function initializeGame() {
     startButton.addEventListener("click", () => {
         gameData.gameState = "Playing";
         styleSheet.href = "css/game.css";
-        menu.style.display = "none"; // Explicitly hide menu
+        menu.style.display = "none"; 
         gameContainer.classList.remove("hidden");
         startGame();
     });
 
     rulesButton.addEventListener("click", () => {
         gameData.gameState = "Rules";
-        styleSheet.href = "css/game.css"; // Use game.css for rules to match styling
-        menu.style.display = "none"; // Explicitly hide menu
+        styleSheet.href = "css/game.css"; 
+        menu.style.display = "none"; 
         gameContainer.classList.remove("hidden");
         gameContainer.innerHTML = `
             <h2>Rules of War</h2>
@@ -37,7 +37,7 @@ function initializeGame() {
             gameData.gameState = "StartMenu";
             styleSheet.href = "css/menu.css";
             gameContainer.classList.add("hidden");
-            menu.style.display = "flex"; // Restore menu visibility
+            menu.style.display = "flex"; 
             gameContainer.innerHTML = "";
         });
     });

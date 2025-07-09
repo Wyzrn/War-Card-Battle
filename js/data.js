@@ -16,7 +16,7 @@ const gameData = {
         { name: "Queen", value: 12 },
         { name: "King", value: 13 },
         { name: "Ace", value: 14 },
-        { name: "Joker", value: 15 } // Joker beats all except 2
+        { name: "Joker", value: 15 } 
     ],
     aiDeck: [],
     playerDeck: [],
