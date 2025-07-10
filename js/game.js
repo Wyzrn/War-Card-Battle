@@ -151,13 +151,13 @@ function initializeGame() {
                 gameData.score.player += gameData.playerWarPile.length + gameData.aiWarPile.length;
                 gameData.playerWarPile = [];
                 gameData.aiWarPile = [];
-                gameStatusEl.textContent = "Player wins the round!";
+                gameStatusEl.textContent = "Player wins the round!!";
             } else if (compareCards(aiCard, playerCard)) {
                 gameData.aiDeck.push(...gameData.aiWarPile, ...gameData.playerWarPile);
                 gameData.score.ai += gameData.playerWarPile.length + gameData.aiWarPile.length;
                 gameData.playerWarPile = [];
                 gameData.aiWarPile = [];
-                gameStatusEl.textContent = "AI wins the round!";
+                gameStatusEl.textContent = "AI wins the round!!";
             } else {
                 gameStatusEl.textContent = "War!";
                 initiateWar();
